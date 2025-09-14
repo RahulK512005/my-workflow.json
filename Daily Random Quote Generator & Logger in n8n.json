@@ -1,0 +1,71 @@
+{
+  "name": "Daily Random Quote Generator & Logger in n8n",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1888,
+        -272
+      ],
+      "id": "abab1c78-3283-4a3a-b5bb-bc12b92cbb30",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "const quotes = [\n  \"Success is not final, failure is not fatal: it is the courage to continue that counts.\",\n  \"Do not wait to strike till the iron is hot; but make it hot by striking.\",\n  \"Great minds discuss ideas; average minds discuss events; small minds discuss people.\",\n  \"If you want to lift yourself up, lift up someone else.\",\n  \"Your time is limited, so don't waste it living someone else's life.\"\n];\n\nconst randomIndex = Math.floor(Math.random() * quotes.length);\nconst quote = quotes[randomIndex];\n\nreturn [{\n  json: {\n    quote,\n    timestamp: new Date().toISOString()\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1680,
+        -272
+      ],
+      "id": "bee01b52-736a-4db8-8364-8ab7df61c7de",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1
+  },
+  "versionId": "43eb30e8-103e-4352-b325-b331824d6bf7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7e4c2040ab949221feae64ab982335215494bc55129871e8ec3fcb68de2a2c19"
+  },
+  "id": "cu0BOcWEjgFCQLid",
+  "tags": []
+}
